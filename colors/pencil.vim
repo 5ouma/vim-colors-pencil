@@ -69,6 +69,8 @@ let s:white           = { "gui": "#F1F1F1", "cterm": "15"  }
 let s:actual_white    = { "gui": "#FFFFFF", "cterm": "231" }
 let s:light_black     = { "gui": "#424242", "cterm": "8"   }
 let s:lighter_black   = { "gui": "#545454", "cterm": "240" }
+let s:none_w          = { "gui": "#f4f4f4", "cterm": "NONE" }
+let s:none_b          = { "gui": "#242424", "cterm": "NONE" }
 
 if g:pencil_higher_contrast_ui == 0
   " darker shadow and whiter grays
@@ -83,9 +85,11 @@ else
 endif
 
 let s:pink            = { "gui": "#fb007a", "cterm": "9"   }
+let s:light_pink      = { "gui": "#f6e3e4", "cterm": "224" }
 let s:dark_red        = { "gui": "#C30771", "cterm": "1"   }
 let s:light_red       = { "gui": "#E32791", "cterm": "1"   }
-let s:orange          = { "gui": "#D75F5F", "cterm": "167" }
+let s:orange          = { "gui": "#ff942f", "cterm": "208" }
+let s:light_orange    = { "gui": "#f9ece0", "cterm": "223" }
 
 let s:darker_blue     = { "gui": "#005F87", "cterm": "18"  }
 let s:dark_blue       = { "gui": "#008EC4", "cterm": "4"   }
@@ -104,8 +108,9 @@ let s:yellow          = { "gui": "#F3E430", "cterm": "11"  }
 let s:dark_yellow     = { "gui": "#A89C14", "cterm": "3"   }
 
 if &background == "dark"
-  let s:bg              = s:black
-  let s:bg_subtle       = s:light_black
+  let s:fg_gray         = s:medium_gray
+  let s:bg              = s:none_b
+  let s:bg_subtle       = s:black
   let s:bg_very_subtle  = s:subtle_black
   let s:norm            = s:lighter_gray
   let s:norm_subtle     = s:light_gray
@@ -115,7 +120,8 @@ if &background == "dark"
   let s:red             = s:light_red
   let s:visual          = s:lighter_black
 else
-  let s:bg              = s:white
+  let s:fg_gray         = s:light_gray
+  let s:bg              = s:none_w
   let s:bg_subtle       = s:light_gray
   let s:bg_very_subtle  = s:lighter_gray
   let s:norm            = s:light_black
@@ -208,16 +214,16 @@ hi! link Delimiter        Special
 hi! link SpecialComment   Special
 hi! link Debug            Special
 
-call s:h("Underlined",    {"fg": s:norm                      , "gui": "underline", "cterm": "underline"})
-call s:h("Ignore",        {"fg": s:bg                                                                  })
-call s:h("Error",         {"fg": s:actual_white, "bg": s:red , "gui": "bold"     , "cterm": "bold"     })
-call s:h("Todo",          {"fg": s:actual_white, "bg": s:pink, "gui": "bold"     , "cterm": "bold"     })
+call s:h("Underlined",    {"fg": s:norm                        , "gui": "underline", "cterm": "underline"})
+call s:h("Ignore",        {"fg": s:bg                                                                    })
+call s:h("Error",         {"fg": s:red, "bg": s:light_pink     , "gui": "bold"     , "cterm": "bold"     })
+call s:h("Todo",          {"fg": s:orange, "bg": s:light_orange, "gui": "bold"     , "cterm": "bold"     })
 
 " ui chrome ====================================================================
 " ordered according to `:help hitest.vim`
 
-call s:h("SpecialKey",    {"fg": s:light_green})
-call s:h("NonText",       {"fg": s:bg_subtle})
+call s:h("SpecialKey",    {"fg": s:fg_gray})
+call s:h("NonText",       {"fg": s:fg_gray})
 call s:h("Directory",     {"fg": s:dark_blue})
 call s:h("ErrorMsg",      {"fg": s:pink})
 call s:h("IncSearch",     {"bg": s:yellow, "fg": s:light_black})
